@@ -137,7 +137,7 @@
 </div>
 
 <h2>損益分岐シミュレーター</h2>
-<p class="h2sub">3年償却で1日あたりのコストを出し、毎日の節約・創出価値でカバーできるかを試す</p>
+<p class="h2sub">3年または4年の償却で1日あたりのコストを出し、毎日の節約・創出価値でカバーできるかを試す</p>
 <div class="card">
   <div style="display:grid; gap:8px; margin-bottom:14px; font-size:14px;">
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="104" checked> ベトナム自作 104万円（実測・今すぐ稼働）</label>
@@ -146,6 +146,12 @@
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="102"> ベトナムBTO 102万円（GearVN・プレミアム部品・今すぐ稼働）</label>
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="85"> 日本BTO 85万円（最安77.88万＋64GB/2TB増強概算・11月受取）</label>
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="98"> 日本BTO 98万円（フロンティア 64GB/2TB既製・11月受取）</label>
+  </div>
+
+  <div style="display:flex; gap:18px; flex-wrap:wrap; margin-bottom:14px; font-size:14px;">
+    <span style="font-size:13px; color:var(--muted);">償却期間:</span>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="years" value="3" checked> 3年</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="years" value="4"> 4年</label>
   </div>
 
   <div style="display:grid; gap:12px;">
@@ -173,7 +179,7 @@
 
   <div style="margin-top:22px; background:var(--em-50); border:1px solid var(--em-100); border-radius:12px; padding:18px 20px;">
     <div style="display:flex; flex-wrap:wrap; gap:20px 36px; margin-bottom:12px;">
-      <div><div style="font-size:12px; color:var(--muted);">必要日額（3年償却）</div><div style="font-size:22px; font-weight:700; color:var(--em-900);" id="rNeed">666円/日</div></div>
+      <div><div style="font-size:12px; color:var(--muted);" id="rNeedLabel">必要日額（3年償却）</div><div style="font-size:22px; font-weight:700; color:var(--em-900);" id="rNeed">666円/日</div></div>
       <div><div style="font-size:12px; color:var(--muted);">今の日次カバー</div><div style="font-size:22px; font-weight:700; color:var(--em-900);" id="rCover">1,250円/日</div></div>
       <div><div style="font-size:12px; color:var(--muted);">判定</div><div style="font-size:22px; font-weight:700; color:var(--em-700);" id="rVerdict">黒字</div></div>
     </div>
@@ -182,7 +188,7 @@
     </div>
     <div style="font-size:12px; color:var(--muted); margin-top:8px;" id="rNote"></div>
   </div>
-  <div class="note">必要日額 =（総額 − 一時金）÷ 1,096日（3年）。2年後にカードを中古売却（約38万円戻り想定）すれば、実質の必要日額はさらに3割前後下がる。</div>
+  <div class="note">必要日額 =（総額 − 一時金）÷ 1,096日（3年）または1,461日（4年）。2年後にカードを中古売却（約38万円戻り想定）すれば、実質の必要日額はさらに3割前後下がる。</div>
 </div>
 
 <h2>出典</h2>
@@ -243,13 +249,16 @@ const $ = id => document.getElementById(id);
 const fmt = n => Math.round(n).toLocaleString('ja-JP');
 function calcBE() {
   const target = +document.querySelector('input[name="target"]:checked').value;
+  const years = +document.querySelector('input[name="years"]:checked').value;
+  const days = years === 4 ? 1461 : 1096;
   const lump = +$('sLump').value;
   const save = +$('sSave').value, api = +$('sApi').value, side = +$('sSide').value;
   $('oLump').textContent = lump + '万円';
   $('oSave').textContent = fmt(save) + '円/日';
   $('oApi').textContent = fmt(api) + '円/日';
   $('oSide').textContent = fmt(side) + '円/日';
-  const need = Math.max(0, target - lump) * 10000 / 1096;
+  $('rNeedLabel').textContent = '必要日額（' + years + '年償却）';
+  const need = Math.max(0, target - lump) * 10000 / days;
   const cover = save + api + side;
   $('rNeed').textContent = fmt(need) + '円/日';
   $('rCover').textContent = fmt(cover) + '円/日';
@@ -268,7 +277,7 @@ function calcBE() {
   }
   $('rBar').style.width = Math.min(100, Math.round(cover / Math.max(need, 1) * 100)) + '%';
 }
-document.querySelectorAll('#sLump, #sSave, #sApi, #sSide, input[name="target"]').forEach(el => el.addEventListener('input', calcBE));
+document.querySelectorAll('#sLump, #sSave, #sApi, #sSide, input[name="target"], input[name="years"]').forEach(el => el.addEventListener('input', calcBE));
 calcBE();
 </script>
 </body>
