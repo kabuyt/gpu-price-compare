@@ -142,6 +142,7 @@
   <div style="display:grid; gap:8px; margin-bottom:14px; font-size:14px;">
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="104" checked> ベトナム自作 104万円（実測・今すぐ稼働）</label>
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="91"> ベトナム自作 91万円（Kingston RAM確保時・今すぐ稼働）</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="102"> ベトナムBTO 102万円（GearVN組立・9900X3D/64GB/SSD5TB・今すぐ稼働）</label>
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="85"> 日本BTO 85万円（最安77.88万＋64GB/2TB増強概算・11月受取）</label>
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="98"> 日本BTO 98万円（フロンティア 64GB/2TB既製・11月受取）</label>
   </div>
@@ -185,7 +186,7 @@
 
 <h2>出典</h2>
 <p class="src">
-ベトナム: <a href="https://gearvn.com/collections/vga-rtx-5090-series">GearVN VGA RTX 5090</a><br>
+ベトナム: <a href="https://gearvn.com/collections/vga-rtx-5090-series">GearVN VGA RTX 5090</a> ・ <a href="https://gearvn.com/products/pc-gvn-custom-0003-ultra-9-285k-rtx-5081">GearVN CUSTOM 0004（BTO実売）</a><br>
 日本: <a href="https://gaming-st.com/gpu/rtx-5090-is-it-worth-it-2026-buying-guide/">RTX 5090価格ガイド 2026</a> ・ <a href="https://gazlog.jp/entry/ddr5-price-daily-chart/">DDR5価格推移（gazlog）</a> ・ <a href="https://good-gamers.jp/desktops/rtx-5090-32gb/">RTX 5090搭載BTOランキング</a> ・ <a href="https://www.pc-koubou.jp/products/detail.php?product_id=1228584">パソコン工房 iiyama LEVEL</a><br>
 アメリカ: <a href="https://videocardprices.com/card/nvidia-rtx-5090/">RTX 5090 Price Tracker</a> ・ <a href="https://bestvaluegpu.com/history/new-and-used-rtx-5090-price-history-and-specs/">Best Value GPU</a><br>
 相場背景: <a href="https://wccftech.com/memory-ddr5-ddr4-shortages-last-till-q4-2027-higher-prices-throughout-2026/">メモリ不足は2027年Q4まで（Wccftech）</a>
@@ -215,9 +216,9 @@ new Chart(document.getElementById('gpuChart'), {
 
 new Chart(document.getElementById('buildChart'), {
   type: 'bar',
-  data: { labels: ['ベトナム 自作（実測）', 'ベトナム 自作（Kingston RAM）', '日本 BTO最安＋増強（概算）', '日本 BTO同等既製（フロンティア）', '日本 自作（推定）', 'アメリカ 自作（推定）'],
-    datasets: [{ data: [103.6, 90.8, 85.0, 98.0, 107.8, 101.3],
-      backgroundColor: [EM, EM, SL, SL, SL, SA], borderRadius: 6, maxBarThickness: 40 }] },
+  data: { labels: ['ベトナム 自作（実測）', 'ベトナム 自作（Kingston RAM）', 'ベトナム BTO（GearVN・64GB）', '日本 BTO最安＋増強（概算）', '日本 BTO同等既製（フロンティア）', '日本 自作（推定）', 'アメリカ 自作（推定）'],
+    datasets: [{ data: [103.6, 90.8, 102.0, 85.0, 98.0, 107.8, 101.3],
+      backgroundColor: [EM, EM, EM, SL, SL, SL, SA], borderRadius: 6, maxBarThickness: 40 }] },
   options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y',
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => yen(c.parsed.x) } } },
     scales: { x: { min: 0, max: 120, grid: { color: grid }, ticks: { callback: yen } }, y: { grid: { display: false } } } }
