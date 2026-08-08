@@ -136,6 +136,51 @@
 <div class="note">ベトナムのKingston Fury 64GB（879万VND）は値上げ前価格の掲載残存の可能性があり、店頭での在庫確認が必要。</div>
 </div>
 
+<h2>損益分岐シミュレーター</h2>
+<p class="h2sub">3年償却で1日あたりのコストを出し、毎日の節約・創出価値でカバーできるかを試す</p>
+<div class="card">
+  <div style="display:flex; gap:18px; flex-wrap:wrap; margin-bottom:14px; font-size:14px;">
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="104" checked> 総額 104万円（実測構成）</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="91"> 91万円（Kingston RAM確保時）</label>
+  </div>
+
+  <div style="display:grid; gap:12px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:13px; min-width:12em;">一時金の充当<br><span class="est">買い替え見送り・貯金など</span></span>
+      <input type="range" id="sLump" min="0" max="50" step="1" value="31" style="flex:1;">
+      <span style="font-size:14px; font-weight:700; min-width:4.5em; text-align:right;" id="oLump">31万円</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:13px; min-width:12em;">毎日の節約<br><span class="est">固定費・嗜好品の見直し</span></span>
+      <input type="range" id="sSave" min="0" max="3000" step="100" value="1000" style="flex:1;">
+      <span style="font-size:14px; font-weight:700; min-width:4.5em; text-align:right;" id="oSave">1,000円/日</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:13px; min-width:12em;">クラウド生成費の回避<br><span class="est">月6〜8千円の課金が不要に</span></span>
+      <input type="range" id="sApi" min="0" max="1000" step="50" value="250" style="flex:1;">
+      <span style="font-size:14px; font-weight:700; min-width:4.5em; text-align:right;" id="oApi">250円/日</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:13px; min-width:12em;">制作・副業収入の日割り<br><span class="est">動画納品・コンテンツ収益</span></span>
+      <input type="range" id="sSide" min="0" max="5000" step="100" value="0" style="flex:1;">
+      <span style="font-size:14px; font-weight:700; min-width:4.5em; text-align:right;" id="oSide">0円/日</span>
+    </div>
+  </div>
+
+  <div style="margin-top:22px; background:var(--em-50); border:1px solid var(--em-100); border-radius:12px; padding:18px 20px;">
+    <div style="display:flex; flex-wrap:wrap; gap:20px 36px; margin-bottom:12px;">
+      <div><div style="font-size:12px; color:var(--muted);">必要日額（3年償却）</div><div style="font-size:22px; font-weight:700; color:var(--em-900);" id="rNeed">666円/日</div></div>
+      <div><div style="font-size:12px; color:var(--muted);">今の日次カバー</div><div style="font-size:22px; font-weight:700; color:var(--em-900);" id="rCover">1,250円/日</div></div>
+      <div><div style="font-size:12px; color:var(--muted);">判定</div><div style="font-size:22px; font-weight:700; color:var(--em-700);" id="rVerdict">黒字</div></div>
+    </div>
+    <div style="height:10px; background:#fff; border:1px solid var(--em-100); border-radius:999px; overflow:hidden;">
+      <div id="rBar" style="height:100%; width:100%; background:var(--em-500); border-radius:999px;"></div>
+    </div>
+    <div style="font-size:12px; color:var(--muted); margin-top:8px;" id="rNote"></div>
+  </div>
+  <div class="note">必要日額 =（総額 − 一時金）÷ 1,096日（3年）。2年後にカードを中古売却（約38万円戻り想定）すれば、実質の必要日額はさらに3割前後下がる。</div>
+</div>
+
 <h2>出典</h2>
 <p class="src">
 ベトナム: <a href="https://gearvn.com/collections/vga-rtx-5090-series">GearVN VGA RTX 5090</a><br>
@@ -189,6 +234,38 @@ new Chart(document.getElementById('histChart'), {
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => yen(Math.round(c.parsed.y)) } } },
     scales: { y: { min: 20, max: 75, grid: { color: grid }, ticks: { callback: yen } }, x: { grid: { display: false }, ticks: { maxRotation: 45 } } } }
 });
+
+const $ = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString('ja-JP');
+function calcBE() {
+  const target = +document.querySelector('input[name="target"]:checked').value;
+  const lump = +$('sLump').value;
+  const save = +$('sSave').value, api = +$('sApi').value, side = +$('sSide').value;
+  $('oLump').textContent = lump + '万円';
+  $('oSave').textContent = fmt(save) + '円/日';
+  $('oApi').textContent = fmt(api) + '円/日';
+  $('oSide').textContent = fmt(side) + '円/日';
+  const need = Math.max(0, target - lump) * 10000 / 1096;
+  const cover = save + api + side;
+  $('rNeed').textContent = fmt(need) + '円/日';
+  $('rCover').textContent = fmt(cover) + '円/日';
+  const diff = cover - need;
+  if (need === 0) {
+    $('rVerdict').textContent = '一時金で完済';
+    $('rNote').textContent = '一時金だけで総額を超えています。';
+  } else if (diff >= 0) {
+    $('rVerdict').textContent = '黒字（+' + fmt(diff) + '円/日）';
+    $('rVerdict').style.color = 'var(--em-700)';
+    $('rNote').textContent = '毎日のカバーが必要日額を上回っており、3年を待たず実質回収が進む計算。';
+  } else {
+    $('rVerdict').textContent = 'あと' + fmt(-diff) + '円/日';
+    $('rVerdict').style.color = '#b45309';
+    $('rNote').textContent = '不足分は缶コーヒー' + Math.ceil(-diff / 150) + '本分。制作収入が1件でも入れば埋まる規模。';
+  }
+  $('rBar').style.width = Math.min(100, Math.round(cover / Math.max(need, 1) * 100)) + '%';
+}
+document.querySelectorAll('#sLump, #sSave, #sApi, #sSide, input[name="target"]').forEach(el => el.addEventListener('input', calcBE));
+calcBE();
 </script>
 </body>
 </html>
