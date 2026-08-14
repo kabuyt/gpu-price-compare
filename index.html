@@ -17,8 +17,8 @@
   * { box-sizing: border-box; word-break: keep-all; overflow-wrap: break-word; }
   /* 日本語の散文は keep-all だと禁則処理が効かず句読点が行頭に落ちる。
      上の * セレクタが全要素に直接効くため、子孫（strong/span等）も明示的に戻す必要がある */
-  .phase p, .why, .rz, .note, .h2sub, .sub, .build .bd, .est, .src, footer,
-  .phase p *, .why *, .rz *, .note *, .src *, footer * { word-break: normal; line-break: strict; }
+  .phase p, .why, .rz, .note, .h2sub, .sub, .build .bd, .est, .src, footer, .card > p,
+  .phase p *, .why *, .rz *, .note *, .src *, footer *, .card > p * { word-break: normal; line-break: strict; }
   html { scroll-behavior: smooth; }
   body { margin: 0; background: var(--bg); color: var(--text);
     font-family: "Noto Sans JP", "Hiragino Sans", sans-serif; line-height: 1.8; font-size: 15px; }
@@ -109,7 +109,7 @@
 
     <div class="kpis">
       <div class="kpi"><div class="l">カード単体 最安</div><div class="v">ベトナム <em>57.5万円</em></div><div class="d">TNC実売 9,399万VND／WINDFORCE OC</div></div>
-      <div class="kpi"><div class="l">一式合計 現実ライン</div><div class="v">90〜108<em>万円</em></div><div class="d">ベトナム自作（RAM構成次第）</div></div>
+      <div class="kpi"><div class="l">一式合計 現実ライン</div><div class="v">89〜107<em>万円</em></div><div class="d">見直し版（RAMの調達先と容量次第）</div></div>
       <div class="kpi"><div class="l">底値からの上昇</div><div class="v">約2.4<em>倍</em></div><div class="d">2025年12月比・世界相場</div></div>
     </div>
   </div>
@@ -132,7 +132,7 @@
 <h2>一式（自作構成合計）</h2>
 <p class="h2sub">同等構成（9950X／64GB／2TB／1200W）の合計額</p>
 <div class="card">
-  <div class="chartbox" style="height:400px;"><canvas id="buildChart" role="img" aria-label="構成合計。ベトナム見直し版96GB108万円、同64GB102万円、同Kingston採用時90万円、TNC BTO94万円、GearVN BTO105万円、比較表構成102万円、日本BTO85万円と98万円、日本自作107万円、アメリカ自作107万円"></canvas></div>
+  <div class="chartbox" style="height:440px;"><canvas id="buildChart" role="img" aria-label="構成合計。見直し版はKingston 64GBで89万円、日本で64GB調達なら91万円、現地64GB101万円、日本で96GB103万円、現地96GB107万円。ベトナムBTOはTNC94万円、GearVN105万円。日本BTOは85万円と98万円、日本自作107万円、アメリカ自作107万円"></canvas></div>
   <div class="note">日本BTO最安はパソコン工房 Ryzen 7 9700X/32GB/1TB（税込77.88万円・セール中）に64GB/2TB増強を加えた概算。フロンティアFRGHLB850/WS0424は64GB/2TBを最初から搭載。いずれも値上げ改定前の在庫価格のため消滅リスクあり、受取は11月帰国時（3か月の機会損失を伴う）。</div>
 </div>
 
@@ -148,7 +148,7 @@
 </div>
 
 <h2>パーツ別 価格表</h2>
-<p class="h2sub">3か国とも「その国で買える最安クラス」で揃えた比較 ／ 実売＝2026-08-15確認、8/8＝前回確認のまま、推定＝直近報道からの概算</p>
+<p class="h2sub">GPUのみ各国の最安クラス、他は同一製品での比較（用途に合わせた選定は次章） ／ 実売＝2026-08-15確認、8/8＝前回確認のまま、推定＝直近報道からの概算</p>
 <div class="card">
 <div class="tscroll">
 <table>
@@ -191,9 +191,11 @@
     <td class="num hl">57.5万<br><span class="est">9,399万VND</span><br><span class="tag chk">要店頭確認</span></td></tr>
 
   <tr><td>RAM</td>
-    <td><strong>Corsair Vengeance 96GB（48GB×2）DDR5-5600</strong>（← 64GB）
-    <span class="rz">ここだけ増額。64GBではH3のINT8経路（約75GB）が閉じ、NVFP4しか使えない。96GBで両方open。さらにAM5は2枚挿しが前提で、4枚に増やすと速度が大きく落ちる＝<strong>後から足せない唯一のパーツ</strong>。</span></td>
-    <td class="num">23.9万<br><span class="est">3,899万VND</span><br><span class="tag ok">TNC確認済</span></td></tr>
+    <td><strong>Corsair Vengeance 96GB（48GB×2）DDR5-5600</strong>（← 64GB）／型番 CMK96GX5M2B5600C40
+    <span class="rz">ここだけ増額。64GBではH3のINT8経路（約75GB）が閉じ、NVFP4しか使えない。96GBで両方open。さらにAM5は2枚挿しが前提で、4枚に増やすと速度が大きく落ちる＝<strong>後から足せない唯一のパーツ。</strong></span>
+    <span class="rz"><strong>同一型番が日本のほうが4.4万円安い（19.4万円）。</strong>11月帰国時に鞄で持ち帰れる重さなので、RAMだけ日本調達が成立する。ただし機体の稼働は11月まで待つことになる。</span>
+    <span class="rz">日本で買う場合の注意：価格.com最安の125,997円は型番が <strong>CMH96GX5M4B6000C30</strong>＝<strong>M4（4枚組）</strong>で、AM5では上記の速度低下に直撃する。48GB×2は必ず <strong>M2</strong> の型番を選ぶこと。</span></td>
+    <td class="num">23.9万<br><span class="est">3,899万VND</span><br><span class="tag ok">TNC確認済</span><br><span class="est">日本 19.4万</span><br><span class="tag ok">価格.com確認済</span></td></tr>
 
   <tr><td>CPU</td>
     <td><strong>Ryzen 9 9950X</strong>（据え置き）
@@ -201,19 +203,20 @@
     <td class="num">10.7万<br><span class="est">1,749万VND</span><br><span class="tag chk">8/8のまま</span></td></tr>
 
   <tr><td>マザーボード</td>
-    <td><strong>B850</strong>（← X870 EAGLE）
-    <span class="rz">X870の差別化点はUSB4必須化と追加のPCIe 5.0レーン。GPU1枚＋NVMe1〜2枚の構成では一切使わない。B850でもGPUはPCIe 5.0 x16、NVMeもGen5が出る。</span></td>
-    <td class="num">4.0万以下<br><span class="est">X870比で要見積</span><br><span class="tag chk">要見積</span></td></tr>
+    <td><strong>Gigabyte B850M GAMING X WIFI6E</strong>（← X870 EAGLE）
+    <span class="rz">X870の差別化点はUSB4必須化と追加のPCIe 5.0レーン。GPU1枚＋NVMe1〜2枚の構成では一切使わない。このB850MでもGPUはPCIe 5.0 x16、NVMeもGen5、DDR5スロットは4本。保証36ヶ月。</span></td>
+    <td class="num">3.2万<br><span class="est">526.9万VND<br>（X870比 −0.8万）</span><br><span class="tag ok">TNC確認済</span></td></tr>
 
   <tr><td>SSD</td>
-    <td><strong>Samsung 990 PRO 2TB</strong>（← 9100 PRO / PCIe 5.0）
-    <span class="rz">読み書きはモデル重みの逐次読みと動画の逐次書き。PCIe 4.0で既に約7GB/s出ており、生成時間の律速はGPU側。Gen5は発熱と価格が増えるだけ。<strong>ただし動画素材で容量は食うので4TBへの増量は検討価値あり。</strong></span></td>
-    <td class="num">5.8万以下<br><span class="est">9100 PRO比で要見積</span><br><span class="tag chk">要見積</span></td></tr>
+    <td><strong>Samsung 9100 PRO 2TB を据え置き</strong>（990 PROへの格下げは撤回）
+    <span class="rz">当初は「Gen5は不要だからGen4の990 PROへ」と考えたが、<strong>ベトナムでは990 PRO(Gen4)が16.79 triệu、9100 PRO(Gen5)が9.49 triệuで、安いほうが速いという逆転が起きている。</strong>理屈が正しくても値段が伴わないので据え置きが正解。</span>
+    <span class="rz">なお動画素材で容量は食うので、4TBへの増量は別途検討価値あり。</span></td>
+    <td class="num">5.8万<br><span class="est">949万VND</span><br><span class="tag chk">8/8のまま</span></td></tr>
 
   <tr><td>電源</td>
-    <td><strong>1000W ATX 3.1・12V-2x6ネイティブ</strong>（← 1200W）
-    <span class="rz">5090が575W、9950Xが約200W、その他75Wで実効850W級。ATX 3.1は過渡ピークを織り込んだ規格なので1000Wで足りる。<strong>W数よりも変換アダプタを使わずケーブル直結できることが重要。</strong>TNCのBTOが積む2000Wは過剰。</span></td>
-    <td class="num">3.2万前後<br><span class="est">要見積</span><br><span class="tag chk">要見積</span></td></tr>
+    <td><strong>Lian Li Edge EG1000 1000W</strong>（← MSI 1200W）／ATX 3.1・80 Plus Platinum・12V-2x6同梱
+    <span class="rz">5090が575W、9950Xが約200W、その他75Wで実効850W級。ATX 3.1は過渡ピークを織り込んだ規格なので1000Wで足りる。<strong>W数よりも変換アダプタを使わずケーブル直結できることが重要で、</strong>この製品は12V-2x6を同梱する。保証60ヶ月。TNCのBTOが積む2000Wは過剰。</span></td>
+    <td class="num">2.9万<br><span class="est">469万VND<br>（1200W比 −0.3万）</span><br><span class="tag ok">TNC確認済</span></td></tr>
 
   <tr><td>ケース</td>
     <td><strong>GPU長360mm以上・拡張4スロット・前後エアフロー</strong>（← Lian Li O11D Evo）
@@ -226,24 +229,33 @@
     <td class="num">1.2万<br><span class="est">空冷上位</span><br><span class="tag chk">推定</span></td></tr>
 </table>
 
+<p style="font-size:13.5px; margin:22px 0 0;"><strong>RAM以外の7点で83.3万円。</strong>ここにどのRAMを載せるかで総額が決まります。</p>
+
 <div class="builds">
-  <div class="build"><div class="bl">見直し版・96GB</div><div class="bv">108.3万</div><div class="bd">H3のINT8経路が使える。RAM増額分が効いて総額は上がる</div></div>
-  <div class="build"><div class="bl">見直し版・64GB</div><div class="bv">102.1万</div><div class="bd">NVFP4のみ。RAMを標準品に戻した場合</div></div>
-  <div class="build best"><div class="bl">見直し版・Kingston 64GB</div><div class="bv">89.8万</div><div class="bd">879万VNDの在庫が実在すれば最安。要店頭確認</div></div>
-  <div class="build"><div class="bl">TNC BTO（参考）</div><div class="bv">93.9万</div><div class="bd">組立・保証込みで即稼働</div></div>
+  <div class="build best"><div class="bl">Kingston 64GB（現地）</div><div class="bv">88.7万</div><div class="bd">今すぐ稼働。879万VNDの在庫が実在すれば最安。要店頭確認</div></div>
+  <div class="build"><div class="bl">日本で64GB（11月）</div><div class="bv">91.3万</div><div class="bd">秋葉原店頭8.0万。確実だが機体は11月まで動かない</div></div>
+  <div class="build"><div class="bl">日本で96GB（11月）</div><div class="bv">102.7万</div><div class="bd">INT8経路が開く。日本のほうが4.4万安い</div></div>
+  <div class="build"><div class="bl">現地で64GB</div><div class="bv">101.0万</div><div class="bd">今すぐ稼働。Kingstonが無かった場合</div></div>
+  <div class="build"><div class="bl">現地で96GB</div><div class="bv">107.2万</div><div class="bd">今すぐ稼働かつINT8可。最も高い</div></div>
+  <div class="build"><div class="bl">TNC BTO（参考）</div><div class="bv">93.9万</div><div class="bd">組立・保証込みで即稼働。64GB相当</div></div>
 </div>
 
-<div class="note"><strong>結論。</strong>Kingston Furyの在庫が実在すれば自作89.8万が最安で、TNCのBTO 93.9万を4万円下回る。<strong>在庫がなければBTO 93.9万が最良</strong>——自作102.1万に対し、BTOは組立工賃・動作保証・即日稼働が付いて8万円安い。つまり<strong>Kingstonの在庫確認1本で結論が決まる</strong>ので、店頭ではまずそれを聞くこと。<br>なお価格の確からしさには段階がある。<span class="tag ok">確認済</span>は今週一次情報で確認、<span class="tag chk">要見積・要確認</span>は未確認。ベトナムは同じ製品が店により4割違う（WINDFORCE OC＝TNC 9,399万VND／mygear 1億2,699万VND）ため、総額は目安として扱うこと。</div>
+<div class="note"><strong>結論。</strong>Kingston Furyの在庫が実在すれば <strong>88.7万で今すぐ動く</strong>のが最良で、TNCのBTO 93.9万を5.2万下回る。<strong>在庫がなければ、今すぐ欲しいならBTO 93.9万</strong>（自作101.0万に対し、組立工賃・動作保証が付いて7万安い）。<strong>11月まで待てるなら日本で64GBを買って91.3万</strong>。つまり<strong>店頭で聞くべきはKingstonの在庫ひとつ</strong>で、それで分岐が決まる。<br>
+<strong>96GBにするかは別問題。</strong>64GBとの差は日本価格で+11.4万円で、これは「H3のINT8経路（約75GB必要）に11.4万円払うか」という一問。NVFP4だけで足りるなら64GBでよい。<br>
+<strong>128GBは検討外。</strong>64GBモジュールは最新の32Gbチップを使い、AIデータセンターと生産枠を奪い合っているため48.1万円・週+43.6%。32GB品（16Gbチップ）と48GB品（24Gbチップ）は成熟世代なので巻き込まれていない。<br>
+なお価格の確からしさには段階がある。<span class="tag ok">確認済</span>は今週一次情報で確認、<span class="tag chk">要確認</span>は未確認。ベトナムは同じ製品が店により4割違う（WINDFORCE OC＝TNC 9,399万VND／mygear 1億2,699万VND）ため、総額は目安として扱うこと。</div>
 </div>
 
 <h2>損益分岐シミュレーター</h2>
 <p class="h2sub">3年または4年の償却で1日あたりのコストを出し、毎日の節約・創出価値でカバーできるかを試す</p>
 <div class="card">
   <div style="display:grid; gap:8px; margin-bottom:14px; font-size:14px;">
-    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="93.9" checked> ベトナムBTO 93.9万円（TNC・9950X/TUF 5090/64GB/2TB・今すぐ稼働）</label>
-    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="89.8"> ベトナム自作 89.8万円（見直し版・Kingston 64GB確保時）</label>
-    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="102.1"> ベトナム自作 102.1万円（見直し版・64GB）</label>
-    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="108.3"> ベトナム自作 108.3万円（見直し版・96GB／H3のINT8経路が開く）</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="88.7" checked> 見直し版 88.7万円（Kingston 64GB確保時・今すぐ稼働）</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="91.3"> 見直し版 91.3万円（RAMだけ日本で64GB・11月稼働）</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="93.9"> ベトナムBTO 93.9万円（TNC・9950X/TUF 5090/64GB/2TB・今すぐ稼働）</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="101"> 見直し版 101.0万円（現地で64GB・今すぐ稼働）</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="102.7"> 見直し版 102.7万円（RAMだけ日本で96GB・11月稼働／INT8可）</label>
+    <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="107.2"> 見直し版 107.2万円（現地で96GB・今すぐ稼働／INT8可）</label>
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="104.6"> ベトナムBTO 104.6万円（GearVN・プレミアム部品・今すぐ稼働）</label>
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="57.5"> カード単体 57.5万円（WINDFORCE OC のみ先に確保・本体は後日）</label>
     <label style="display:flex; align-items:center; gap:6px;"><input type="radio" name="target" value="85"> 日本BTO 85万円（最安77.88万＋64GB/2TB増強概算・11月受取）</label>
@@ -297,6 +309,7 @@
 <p class="src">
 ベトナム: <a href="https://www.tncstore.vn/vga-nvidia-rtx-5090.html">TNC Store RTX 5090一覧（カード最安）</a> ・ <a href="https://www.tncstore.vn/ram-corsair-vengeance-96gb-ddr5-bus-5600mhz-cmk96gx5m2b5600c40.html">TNC Corsair Vengeance 96GB（RAM）</a> ・ <a href="https://www.tncstore.vn/pc-do-hoa-ryzen-9-9950x-rtx-5090.html">TNC Store PC Đồ Họa 9950X/5090（BTO標準構成）</a> ・ <a href="https://gearvn.com/collections/vga-rtx-5090-series">GearVN VGA RTX 5090</a> ・ <a href="https://gearvn.com/products/pc-gvn-custom-0003-ultra-9-285k-rtx-5081">GearVN CUSTOM 0004（BTO実売）</a><br>
 日本: <a href="https://gaming-st.com/gpu/rtx-5090-is-it-worth-it-2026-buying-guide/">RTX 5090価格ガイド 2026</a> ・ <a href="https://gazlog.jp/entry/ddr5-price-daily-chart/">DDR5価格推移（gazlog・毎日更新）</a> ・ <a href="https://gazlog.jp/entry/ddr5-price-peak-out-in-japan/">DDR5 32GB・64GBはピークアウト（gazlog）</a> ・ <a href="https://akiba-pc.watch.impress.co.jp/docs/price/monthly_repo/2130945.html">8月前半のメモリ価格（AKIBA PC Hotline）</a> ・ <a href="https://www.sofmap.com/product_detail.aspx?sku=23084095">ソフマップ O11D EVO</a> ・ <a href="https://good-gamers.jp/desktops/rtx-5090-32gb/">RTX 5090搭載BTOランキング</a> ・ <a href="https://www.pc-koubou.jp/products/detail.php?product_id=1228584">パソコン工房 iiyama LEVEL</a><br>
+日本（RAM）: <a href="https://search.kakaku.com/ddr5%2096gb/?category=0001_0033">価格.com DDR5 96GB一覧</a><br>
 アメリカ: <a href="https://videocardprices.com/card/nvidia-rtx-5090/">RTX 5090 Price Tracker</a> ・ <a href="https://bestvaluegpu.com/history/new-and-used-rtx-5090-price-history-and-specs/">Best Value GPU</a><br>
 相場背景: <a href="https://wccftech.com/memory-ddr5-ddr4-shortages-last-till-q4-2027-higher-prices-throughout-2026/">メモリ不足は2027年Q4まで（Wccftech）</a>
 </p>
@@ -325,9 +338,9 @@ new Chart(document.getElementById('gpuChart'), {
 
 new Chart(document.getElementById('buildChart'), {
   type: 'bar',
-  data: { labels: ['ベトナム 見直し版（96GB）', 'ベトナム 見直し版（64GB）', 'ベトナム 見直し版（Kingston 64GB）', 'ベトナム BTO標準（TNC・64GB/2TB）', 'ベトナム BTOプレミアム（GearVN）', 'ベトナム 自作（比較表の構成）', '日本 BTO最安＋増強（概算）', '日本 BTO同等既製（フロンティア）', '日本 自作（推定）', 'アメリカ 自作（推定）'],
-    datasets: [{ data: [108.3, 102.1, 89.8, 93.9, 104.6, 102.4, 85.0, 98.0, 107.4, 107.2],
-      backgroundColor: [EM, EM, EM, EM, EM, EM, SL, SL, SL, SA], borderRadius: 6, maxBarThickness: 40 }] },
+  data: { labels: ['見直し版・Kingston 64GB（即）', '見直し版・日本で64GB（11月）', 'ベトナム BTO標準（TNC・即）', '見直し版・現地64GB（即）', '見直し版・日本で96GB（11月）', 'ベトナム BTOプレミアム（GearVN・即）', '見直し版・現地96GB（即）', '日本 BTO最安＋増強（11月）', '日本 BTO同等既製（11月）', '日本 自作（推定）', 'アメリカ 自作（推定）'],
+    datasets: [{ data: [88.7, 91.3, 93.9, 101.0, 102.7, 104.6, 107.2, 85.0, 98.0, 107.4, 107.2],
+      backgroundColor: [EM, EM, EM, EM, EM, EM, EM, SL, SL, SL, SA], borderRadius: 6, maxBarThickness: 40 }] },
   options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y',
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => yen(c.parsed.x) } } },
     scales: { x: { min: 0, max: 120, grid: { color: grid }, ticks: { callback: yen } }, y: { grid: { display: false } } } }
